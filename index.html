@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+  <div class='wrapper'>
+    <h3> Habit Tracker </h3>
+    <table id='habitTable'>
+      <tbody>
+        <tr>
+          <th rowspan=2 id='habitName'> Habit name</th>
+          <th rowspan=2 id='habitPoints'> Points </th>
+          <th rowspan=2 id='deleteBtn'> Action </th>
+          <th class='day'> M</th>
+          <th class='day'> T</th>
+          <th class='day'> W</th>
+          <th class='day'> T</th>
+          <th class='day'> F</th>
+          <th class='day'> S</th>
+          <th class='day'> S</th>
+          <th rowspan=2 id='totalPoints'>Total </th>
+        </tr>
+        <tr> 
+          <th id='date'> 1</th>
+          <th id='date'> 2</th>
+          <th id='date'> 3</th>
+          <th id='date'> 4</th>
+          <th id='date'> 5</th>
+          <th id='date'> 6</th>
+          <th id='date'> 7</th>
+        </tr>
+      
+      </tbody>
+    </table>
+    <button id='addHabit'> + Add New Habit</button>
+    <div id='habitForm' class='hidden'>  
+      <form> 
+        <input type='text' id='habitInput' placeholder='Enter Habit '>
+        <br>
+        <input type='range' id='habitPoint' min=0 max=5>
+        <br>
+        <br>
+        <button id='saveBtn'> Save</button>
+        <button id='cancelBtn'> Cancel</button>
+      </form>
+    </div>
+  </div>
+ 
+  
+  <script  src="main.js"> </script>
+
+</body>
+
+</html> <!-- 
+  <div id='wrapper class='wrapper'> 
+    <form id='habitForm'> 
+      <h1> Habit Tracker</h1>
+      <div class='input-box' id='input-container'>
+        <input type='text' id='habitInput' placeholder='Enter Habit' />
+        <input type='range' id= 'scoreInput' min= 1 max= 5 value=0 />
+      </div>
+      <div class='button-container'>
+        <button id='addBtn' type='submit'> Add New Habit</button>           
+        <button id='storeBtn'> Store Page</button>
+      </div> 
+    </form>
+  <section id='tableInfo'> 
+    <table id='habit_table' class='table'>
+      <tr> 
+        <th> Habit </th> 
+        <th> Points </th>
+        <th> Action </th>
+      </tr>
+    </table>
+  </section>
+  </div> -->
+              
