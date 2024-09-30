@@ -1,21 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Habit Website </title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Habit Website</title>
+    <style> 
+        table * {
+            border: 1px solid black;    
+        }
+    </style>
+  </head>
+  <body>
     <div class="container">
-        <form id="habitForm">
-            <div class="habitInput"> 
-                <label for="habitInput"> Habit Name </label>
-                <input type="text" id="habitInput"> 
-            </div> 
-            <button id='habitBtn' type="submit"> Submit </button>
-        </form>
-
+      <form id="habitForm">
+        <div class="habitInput">
+          <label for="habitInput"> Habit Name </label>
+          <input type="text" id="habitInput" />
+        </div>
+        <div class="habitGoal">
+          <label for="habitInput"> Habit Goal </label>
+          <input type="number" id="habitGoal" value="1" />
+        </div>
+        <button id="habitBtn" type="submit">Add</button>
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <th>Habit's</th>
+            <th>Goal</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr>
+            <td>Dancing </td>
+            <td> 5 minutes </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <script src="main.js">  </script>
-</body>
+    <script src="main.js"></script>
+  </body>
 </html>
