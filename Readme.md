@@ -22,15 +22,10 @@ The button tag had action="submit", which is not correct.
 Improvement: Use type="submit" for form submission buttons.
 
 
-## Review: 
+## Review ( Exam 10/06 ): 
 Arrow functions ? 
 object Object ? 
 closure ??
-
-## Dumb Mistakes 
-I spent 2 hours, trying to figure out why my console was not logging my habit input's turns out I just needed to update the chrome browser. This made me feel very duumb. 
-
-### Git Review ( Exam 10/06 )
 
 How to switch between branches on GitHub and locally.
 Why are there discrepancies between local and remote branches.
@@ -49,3 +44,7 @@ How to pull changes from a remote repository.
 How to create and delete branches.
 
 
+
+## Problems and Solutions 
+Currently, I am able to add habits, but there some overlapping when I try to display them. The habits display from the Object . 
+I solved in myself; no help. I basically just created a count = 0. Then I created a loop using while which only ran if the length of my dict was greater than pointer or equal to my pointer, then i would add 1 to my pointer which would make it not run. So as long as my count is equal to dictionary, it will not run. I will probably run into issues later when i delete them. 
