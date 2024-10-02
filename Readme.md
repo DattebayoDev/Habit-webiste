@@ -48,3 +48,35 @@ How to create and delete branches.
 ## Problems and Solutions 
 Currently, I am able to add habits, but there some overlapping when I try to display them. The habits display from the Object . 
 I solved in myself; no help. I basically just created a count = 0. Then I created a loop using while which only ran if the length of my dict was greater than pointer or equal to my pointer, then i would add 1 to my pointer which would make it not run. So as long as my count is equal to dictionary, it will not run. I will probably run into issues later when i delete them. 
+
+
+
+## Before and After Code 
+
+
+Problem: Inefficent Iterative Build / Cumulative Output
+
+```javascript
+for (count = 0; count <= habit_data.length; count ++) {
+      let habit = habit_data[count]
+      let row = `<tr>
+                  <td>${habit.name} </td>
+                  <td>${habit.goal} </td>
+              </tr>`;
+      tableBody.innerHTML += row;
+  }
+ 
+```
+Solution: So SIMPLE 
+
+let newHabit = habit_data[habit_data.length - 1]; // Get the last added habit
+
+```javascript
+let newRow = `<tr>
+                <td>${newHabit.name}</td>
+                <td>${newHabit.goal}</td>
+             </tr>`;
+
+```
+// Append the new row without duplicating previous ones
+tableBody.innerHTML += newRow;
