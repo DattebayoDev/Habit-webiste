@@ -5,9 +5,67 @@ Data Storage: Deciding how to store habit data.
 Scalability: Ensuring that the data structure can handle a growing number of habits.
 Maintainability: Designing the data structure to be easy to understand and modify.
 
-## New Information
+## New Information 
 Callbacks and their use case
 
+
+```javascript
+function displayTable() {
+    tableBody.innerHTML = "";
+    
+    habit_data.forEach((habit, index) => {
+        let row = `<tr>
+            <td contenteditable="true" data-index="${index}" data-field="name">${habit.name}</td>
+            <td contenteditable="true" data-index="${index}" data-field="goal">${habit.goal}</td>
+        </tr>`;
+        tableBody.innerHTML += row;
+    });
+
+    // Add event listeners to editable cells
+    const editableCells = tableBody.querySelectorAll('[contenteditable="true"]');
+    editableCells.forEach(cell => {
+        cell.addEventListener('blur', handleCellEdit);
+        cell.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                this.blur();
+            }
+        });
+    });
+}
+
+function handleCellEdit(event) {
+    const cell = event.target;
+    const index = parseInt(cell.dataset.index);
+    const field = cell.dataset.field;
+    const newValue = cell.textContent.trim();
+
+    // Update habit_data
+    habit_data[index][field] = newValue;
+
+    // Here you might want to add validation or additional logic
+    console.log(`Updated habit ${index}, ${field} to: ${newValue}`);
+}
+```
+
+blur event is like chopping vegtables 
+function habitCellEdit is like sauteing the vegetables 
+
+cell.addEventListener('blur', handleCellEdit);
+
+function handleCellEdit(event) event refers to the blur 
+
+data-index="${index}" data-field="name" 
+data-index="${index}" data-field="goal"
+  The data-index and data-field attributes are like labels on boxes in a storage room. Each box (element or cell) is labeled with its position (data-index) and its contents (data-field). You cannot change data-field to ${habit.name}
+
+template literal syntax ${index} 
+
+event.target refers to the specific element that triggered the element, so the cell.
+
+custom data attributes can be anything as long as they start with data-
+
+for of or for in: 
 ## Things I forgot about:
 Accessing Input Value Too Early: 
 I tried to log habitInput.value immediately on page load, before the user interacted with the form. 
@@ -32,13 +90,13 @@ Why are there discrepancies between local and remote branches.
 How to resolve conflicts between branches.
 How to delete branches and recover changes.
 How to understand the output of git branch -a.
-File Management:
 
+File Management:
 Why are there extra files on my local machine that aren't on GitHub.
 How to remove files from a Git repository.
 How to understand the output of git status and ls -la.
-General Git Concepts:
 
+General Git Concepts:
 What is a detached HEAD state.
 How to pull changes from a remote repository.
 How to create and delete branches.
@@ -46,16 +104,10 @@ How to create and delete branches.
 
 
 ## Problems and Solutions 
-Currently, I am able to add habits, but there some overlapping when I try to display them. The habits display from the Object . 
-I solved in myself; no help. I basically just created a count = 0. Then I created a loop using while which only ran if the length of my dict was greater than pointer or equal to my pointer, then i would add 1 to my pointer which would make it not run. So as long as my count is equal to dictionary, it will not run. I will probably run into issues later when i delete them. 
 
 
-
-## Before and After Code 
-
-
-Problem: Inefficent Iterative Build / Cumulative Output
-
+**Problem: Inefficent Iterative Build / Cumulative Output
+**
 ```javascript
 for (count = 0; count <= habit_data.length; count ++) {
       let habit = habit_data[count]
@@ -67,7 +119,8 @@ for (count = 0; count <= habit_data.length; count ++) {
   }
  
 ```
-Solution: So SIMPLE 
+**Solution: So SIMPLE 
+**
 
 let newHabit = habit_data[habit_data.length - 1]; // Get the last added habit
 
@@ -80,3 +133,5 @@ let newRow = `<tr>
 ```
 // Append the new row without duplicating previous ones
 tableBody.innerHTML += newRow;
+
+
