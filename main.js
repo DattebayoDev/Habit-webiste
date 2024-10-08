@@ -21,38 +21,31 @@ habitBtn.addEventListener("click", addHabit);
 function addHabit() {
   let habit = new Habit(habitInput.value, habitGoal.value);
   habit_data.push(habit);
-
+  console.log(habit_data)
   displayTable();
 }
-// function displayTable() {
-//     habit_data.forEach( habit => {
-//         let row = `<tr>
-//             <td>${habit.name} </td>
-//             <td>${habit.goal} </td>
-//         </tr>`;
-//         tableBody.innerHTML += row;
-//     })
-
-// }
 
 function displayTable() {
-  for (count = 0; count <= habit_data.length; count ++) {
-      let habit = habit_data[count]
-      let row = `<tr>
-                  <td>${habit.name} </td>
-                  <td>${habit.goal} </td>
-              </tr>`;
-      tableBody.innerHTML += row;
+
+  for (let index = 0; index < habit_data.length; index++) {
+    let habit = habit_data[index]
+    console.log(habit.name)
+    console.log(habit.goal)
+    let row = `<tr> 
+    <td data-index="${index}" data-field="name"> ${habit.name} </td>  
+    <td data-index="${index}" data-field="goal"> ${habit.goal} </td>
+    </tr> `
+
+    tableBody.innerHTML += row
+    console.log("This is index: "{index})
+    let nameCell = tableBody.rows[index].cells[0]
+    let goalCell = tableBody.rows[index].cells[1]
+    console.log(nameCell.dataset, goalCell.dataset)
+
+
   }
- 
 
-let newHabit = habit_data[habit_data.length - 1]; // Get the last added habit
 
-let newRow = `<tr>
-                <td>${newHabit.name}</td>
-                <td>${newHabit.goal}</td>
-             </tr>`;
 
-// Append the new row without duplicating previous ones
-tableBody.innerHTML += newRow;
 }
+

@@ -5,9 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Habit Website</title>
     <style>
+
+      * {
+        margin: 0px;
+        padding: 5px;
+      }
       table * {
         border: 1px solid black;
       }
+
+      body {
+        display: flex;
+        justify-content: center;
+        margin-top: 15%;
+      }
+
+
     </style>
   </head>
   <body>
@@ -32,8 +45,8 @@
         </thead>
         <tbody id="tableBody">
           <tr>
-            <td>Dancing</td>
-            <td>5 minutes</td>
+            <td contenteditable="true" data-index="0" data-field="dancing"> Dancing</td>
+            <td contenteditable="true" data-index="0" data-field="5 minutes">5 minutes</td>
             <td>
               <button class="edit-btn">Edit</button>
               <button class="delete-btn">Delete</button>
