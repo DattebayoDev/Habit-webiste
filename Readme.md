@@ -27,13 +27,13 @@ Callbacks and their use case
 }
 
 ```
-**Blur Event
-**
+**Blur Event**
+
 The blur event fires when an element loses focus
 Used in our application for saving edits when users finish editing a cell
 Example analogy: Think of it like finishing chopping vegetables - once you're done (blur), you move on to the next step
 
-** Data Attributes **
+**Data Attributes**
 Custom data attributes are used to store metadata about table cells:
 
 data-index: Stores the row index
@@ -46,7 +46,6 @@ Labels (data attributes) tell us what's inside and where it belongs
 Must start with "data-" but can be named anything after that
 Cannot use dynamic values like ${habit.name} as attribute names
 
-
 template literal syntax ${index} 
 
 event.target refers to the specific element that triggered the element, so the cell.
@@ -54,6 +53,7 @@ event.target refers to the specific element that triggered the element, so the c
 custom data attributes can be anything as long as they start with data-
 
 for of or for in: 
+
 ## Things I forgot about:
 Accessing Input Value Too Early: 
 I tried to log habitInput.value immediately on page load, before the user interacted with the form. 
