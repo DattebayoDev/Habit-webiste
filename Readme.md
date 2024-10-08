@@ -10,17 +10,9 @@ Callbacks and their use case
 
 
 ```javascript
-function displayTable() {
-    tableBody.innerHTML = "";
-    
-    habit_data.forEach((habit, index) => {
-        let row = `<tr>
-            <td contenteditable="true" data-index="${index}" data-field="name">${habit.name}</td>
-            <td contenteditable="true" data-index="${index}" data-field="goal">${habit.goal}</td>
-        </tr>`;
-        tableBody.innerHTML += row;
-    });
 
+    
+    
     // Add event listeners to editable cells
     const editableCells = tableBody.querySelectorAll('[contenteditable="true"]');
     editableCells.forEach(cell => {
@@ -34,30 +26,26 @@ function displayTable() {
     });
 }
 
-function handleCellEdit(event) {
-    const cell = event.target;
-    const index = parseInt(cell.dataset.index);
-    const field = cell.dataset.field;
-    const newValue = cell.textContent.trim();
-
-    // Update habit_data
-    habit_data[index][field] = newValue;
-
-    // Here you might want to add validation or additional logic
-    console.log(`Updated habit ${index}, ${field} to: ${newValue}`);
-}
 ```
+**Blur Event
+**
+The blur event fires when an element loses focus
+Used in our application for saving edits when users finish editing a cell
+Example analogy: Think of it like finishing chopping vegetables - once you're done (blur), you move on to the next step
 
-blur event is like chopping vegtables 
-function habitCellEdit is like sauteing the vegetables 
+** Data Attributes **
+Custom data attributes are used to store metadata about table cells:
 
-cell.addEventListener('blur', handleCellEdit);
+data-index: Stores the row index
+data-field: Identifies the field type (name or goal)
 
-function handleCellEdit(event) event refers to the blur 
+Think of data attributes like labels on storage boxes:
 
-data-index="${index}" data-field="name" 
-data-index="${index}" data-field="goal"
-  The data-index and data-field attributes are like labels on boxes in a storage room. Each box (element or cell) is labeled with its position (data-index) and its contents (data-field). You cannot change data-field to ${habit.name}
+The box (element) contains the content
+Labels (data attributes) tell us what's inside and where it belongs
+Must start with "data-" but can be named anything after that
+Cannot use dynamic values like ${habit.name} as attribute names
+
 
 template literal syntax ${index} 
 
