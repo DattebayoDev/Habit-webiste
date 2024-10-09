@@ -16,7 +16,8 @@ let habitBtn = document.getElementById("habitBtn");
 let tableBody = document.getElementById("tableBody");
 let saveBtn = document.getElementById("saveBtn")
 
-let habitData = localStorage.getItem("habitData") || [];
+let habitData = JSON.parse(localStorage.getItem("habitData")) || [];
+
 habitBtn.addEventListener("click", addHabit);
 function addHabit() {
   let habit = new Habit(habitInput.value, habitGoal.value);
@@ -46,8 +47,18 @@ function displayTable() {
 
   //   tableBody.innerHTML += row
   // }
+  for (n = 0; n < habitData.length; n++) {
+    let habit = habitData[0]
+    tableBody.innerHTML= " "
+    row = `<tr> 
+    <td> ${habit.name} </td>
+    <td> ${habit.goal} </td>
+     <tr> `
 
-  
+    tableBody.innerHTML += row
+  }
+
+
 
 }
 
