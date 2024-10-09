@@ -34,6 +34,7 @@ Used in our application for saving edits when users finish editing a cell
 Example analogy: Think of it like finishing chopping vegetables - once you're done (blur), you move on to the next step
 
 **Data Attributes**
+
 Custom data attributes are used to store metadata about table cells:
 
 data-index: Stores the row index

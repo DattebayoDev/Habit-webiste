@@ -14,36 +14,40 @@ let habitInput = document.getElementById("habitInput");
 let habitGoal = document.getElementById("habitGoal");
 let habitBtn = document.getElementById("habitBtn");
 let tableBody = document.getElementById("tableBody");
+let saveBtn = document.getElementById("saveBtn")
 
-let habit_data = [];
+let habitData = [];
 
 habitBtn.addEventListener("click", addHabit);
 function addHabit() {
   let habit = new Habit(habitInput.value, habitGoal.value);
-  habit_data.push(habit);
-  console.log(habit_data)
+  habitData.push(habit);
   displayTable();
 }
+console.log('This is the habitData', habitData)
+saveBtn.addEventListener("click", saveHabit);
+function saveHabit() {
+  let habit = new Habit(habitInput.value, habitGoal.value)
+  habitData.push(habit)
+  localStorage.setItem("habitData", JSON.stringify(habitData))
+  console.log(localStorage.getItem("habitData"))
+
+}
+console.log(localStorage.getItem("habitData"))
 
 function displayTable() {
 
-  for (let index = 0; index < habit_data.length; index++) {
-    let habit = habit_data[index]
-    console.log(habit.name)
-    console.log(habit.goal)
-    let row = `<tr> 
-    <td data-index="${index}" data-field="name"> ${habit.name} </td>  
-    <td data-index="${index}" data-field="goal"> ${habit.goal} </td>
-    </tr> `
+  // for (let index = 0; index < habit_data.length; index++) {
+  //   let habit = habit_data[index]
+  //   console.log(habit.name)
+  //   console.log(habit.goal)
+  //   let row = `<tr> 
+  //   <td data-index="${index}" data-field="name"> ${habit.name} </td>  
+  //   <td data-index="${index}" data-field="goal"> ${habit.goal} </td>
+  //   </tr> `
 
-    tableBody.innerHTML += row
-    console.log("This is index: "{index})
-    let nameCell = tableBody.rows[index].cells[0]
-    let goalCell = tableBody.rows[index].cells[1]
-    console.log(nameCell.dataset, goalCell.dataset)
-
-
-  }
+  //   tableBody.innerHTML += row
+  // }
 
 
 

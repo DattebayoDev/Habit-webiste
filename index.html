@@ -7,11 +7,12 @@
     <style>
 
       * {
-        margin: 0px;
+        margin: 5px;
         padding: 5px;
       }
-      table * {
+      table, .container div, button{
         border: 1px solid black;
+        background-color: beige;
       }
 
       body {
@@ -20,7 +21,7 @@
         margin-top: 15%;
       }
 
-
+      
     </style>
   </head>
   <body>
@@ -35,6 +36,7 @@
           <input type="number" id="habitGoal" value="1" />
         </div>
         <button id="habitBtn" type="submit">Add</button>
+        <button id="saveBtn" type="submit"> Save </button>
       </form>
       <table>
         <thead>
@@ -45,8 +47,8 @@
         </thead>
         <tbody id="tableBody">
           <tr>
-            <td contenteditable="true" data-index="0" data-field="dancing"> Dancing</td>
-            <td contenteditable="true" data-index="0" data-field="5 minutes">5 minutes</td>
+            <td contenteditable="true" data-index="0" data-field="name"> Dancing</td>
+            <td contenteditable="true" data-index="0" data-field="goal"><input type="number"></td>
             <td>
               <button class="edit-btn">Edit</button>
               <button class="delete-btn">Delete</button>

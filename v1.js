@@ -11,6 +11,7 @@ function displayTable() {
         </tr>`;
         tableBody.innerHTML += row;
     });
+    c
 
     // Add event listeners to editable cells
     const editableCells = tableBody.querySelectorAll('[contenteditable="true"]');
