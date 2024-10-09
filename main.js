@@ -16,24 +16,22 @@ let habitBtn = document.getElementById("habitBtn");
 let tableBody = document.getElementById("tableBody");
 let saveBtn = document.getElementById("saveBtn")
 
-let habitData = [];
-
+let habitData = localStorage.getItem("habitData") || [];
 habitBtn.addEventListener("click", addHabit);
 function addHabit() {
   let habit = new Habit(habitInput.value, habitGoal.value);
   habitData.push(habit);
   displayTable();
 }
-console.log('This is the habitData', habitData)
+
+
 saveBtn.addEventListener("click", saveHabit);
 function saveHabit() {
   let habit = new Habit(habitInput.value, habitGoal.value)
   habitData.push(habit)
   localStorage.setItem("habitData", JSON.stringify(habitData))
-  console.log(localStorage.getItem("habitData"))
 
 }
-console.log(localStorage.getItem("habitData"))
 
 function displayTable() {
 
@@ -49,7 +47,7 @@ function displayTable() {
   //   tableBody.innerHTML += row
   // }
 
-
+  
 
 }
 
