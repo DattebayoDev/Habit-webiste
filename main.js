@@ -4,7 +4,11 @@ class Habit {
     this.goal = goal;
   }
 }
-
+window.addEventListener("load", (event) => {
+  addHabit()
+  
+})
+// localStorage.clear()
 let habitForm = document
   .getElementById("habitForm")
   .addEventListener("submit", (event) => {
@@ -17,22 +21,16 @@ let tableBody = document.getElementById("tableBody");
 let saveBtn = document.getElementById("saveBtn")
 
 let habitData = JSON.parse(localStorage.getItem("habitData")) || [];
-
 habitBtn.addEventListener("click", addHabit);
 function addHabit() {
   let habit = new Habit(habitInput.value, habitGoal.value);
   habitData.push(habit);
+  localStorage.setItem('habitData', JSON.stringify(habitData))
   displayTable();
 }
 
 
-saveBtn.addEventListener("click", saveHabit);
-function saveHabit() {
-  let habit = new Habit(habitInput.value, habitGoal.value)
-  habitData.push(habit)
-  localStorage.setItem("habitData", JSON.stringify(habitData))
 
-}
 
 function displayTable() {
 
@@ -47,9 +45,10 @@ function displayTable() {
 
   //   tableBody.innerHTML += row
   // }
+  tableBody.innerHTML= " "
+
   for (n = 0; n < habitData.length; n++) {
-    let habit = habitData[0]
-    tableBody.innerHTML= " "
+    let habit = habitData[n]
     row = `<tr> 
     <td> ${habit.name} </td>
     <td> ${habit.goal} </td>
