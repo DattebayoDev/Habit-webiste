@@ -3,14 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js "></script>
     <title>Habit Website</title>
     <style>
-
       * {
         margin: 5px;
         padding: 5px;
       }
-      table, .container div, button{
+      table,
+      .container div,
+      button {
         border: 1px solid black;
         background-color: beige;
       }
@@ -20,12 +22,11 @@
         justify-content: center;
         margin-top: 15%;
       }
-
-      
     </style>
   </head>
   <body>
-    <div class="container">
+    <div id="calendar"> </div>
+    <!-- <div class="container">
       <form id="habitForm">
         <div class="habitInput">
           <label for="habitInput"> Habit Name </label>
@@ -36,7 +37,6 @@
           <input type="number" id="habitGoal" value="1" />
         </div>
         <button id="habitBtn" type="submit">Add</button>
-        <button id="saveBtn" type="submit"> Save </button>
       </form>
       <table>
         <thead>
@@ -46,17 +46,40 @@
           </tr>
         </thead>
         <tbody id="tableBody">
-          <tr>
-            <td contenteditable="true" data-index="0" data-field="name"> Dancing</td>
-            <td contenteditable="true" data-index="0" data-field="goal"><input type="number"></td>
-            <td>
-              <button class="edit-btn">Edit</button>
-              <button class="delete-btn">Delete</button>
-            </td>
-          </tr>
+          <tr></tr>
         </tbody>
       </table>
-    </div>
+    </div> -->
     <script src="main.js"></script>
+    <script> 
+        document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'timeGridWeek',
+      initialDate: '2024-10-07',
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'timeGridWeek,timeGridDay'
+      },
+      datesSet: function(info) {
+        removeTbody(calendarEl);
+      },
+    });
+    
+    calendar.render();
+    function removeTbody(calendarElement) {
+      const fcTable = calendarElement.querySelector('tbody');
+      if (fcTable) {
+          fcTable.remove(); 
+          console.log('Table removed');
+          
+      }
+    }
+    // Initially remove the tbody when the calendar first loads
+    removeTbody(calendarEl);
+  });
+    </script>
   </body>
 </html>
