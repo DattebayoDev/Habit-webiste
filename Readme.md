@@ -1,126 +1,129 @@
-# Considerations:
-JavaScript Object: A simple and flexible way to store key-value pairs of data.
-Custom Class: A more structured approach to organizing data, providing encapsulation and methods for operations.
-Data Storage: Deciding how to store habit data.
-Scalability: Ensuring that the data structure can handle a growing number of habits.
-Maintainability: Designing the data structure to be easy to understand and modify.
+# Habit Tracker
+## Description
+The website is a gamified habit tracking application that rewards users for completing their habits. Users earn points for maintaining their habits, which can be redeemed for customizable rewards in an in-app store.
+Table of Contents
 
-## New Information 
-Callbacks and their use case
+## Features
+
+Technologies  
+Getting Started     
+Project Status  
+Roadmap  
+
+## Features
+
+### Current Features  
+
+Basic habit tracking interface  
+Habit creation and management  
+
+## Planned Features
+
+Calendar integration using FullCalendar library  
+Points system for completed habits  
+Custom reward store  
+Progress tracking  
+Achievement system  
+Mobile-responsive design  
+
+## Technologies
+
+HTML5 
+
+CSS3
+
+JavaScript
+
+FullCalendar Library (v6.1.15)
 
 
-```javascript
+## Getting Started
+Currently in development.  
+The project will be accessible via web browser when deployed.
 
-    
-    
-    // Add event listeners to editable cells
-    const editableCells = tableBody.querySelectorAll('[contenteditable="true"]');
-    editableCells.forEach(cell => {
-        cell.addEventListener('blur', handleCellEdit);
-        cell.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                this.blur();
-            }
-        });
+### Project Status
+Current Stage: Early Development (Beta)
+
+## Implementing basic calendar functionality
+Setting up core habit tracking features
+
+## Roadmap
+### Phase 1 (Current)
+
+ Set up project structure  
+ Integrate FullCalendar  
+ Create habit tracking table  
+ Implement basic habit management  
+
+### Phase 2 (Upcoming)  
+
+ Add points system  
+ Create reward store interface  
+ Implement user progress tracking  
+
+### Phase 3 (Future)
+
+ Add achievement system  
+ Implement data visualization  
+ Add social features  
+
+Note: This is a living document that will be updated as the project evolves.
+
+### Challenges & Solutions
+#### New Challenge: Table Row Appending
+- **Problem:** Inefficient table updates causing performance issues and duplicate content
+- **Initial Approach:** Used cumulative innerHTML updates in a loop to build table
+- **Solution:** Targeted append of only the new row instead of rebuilding entire table
+- **Key Learning:** Always consider performance impact of DOM operations - modify only what needs to change
+
+#### New Challenge: Form Data Handling
+- **Problem:** Inconsistent form data capture and premature value access
+- **Initial Approach:** Tried accessing input values immediately on page load
+- **Solution:** Implemented proper event listeners and form submission handling
+- **Key Learning:** Wait for user interaction before accessing form values
+
+### Technical Learnings
+#### New Concept: Data Attributes
+- What it is: Custom HTML attributes that store metadata, starting with 'data-'
+- How it works: Attributes are added to HTML elements like `data-index="1"` and accessed via JavaScript
+- Why it's useful: Provides clean way to store metadata about elements without custom properties
+- Resources: MDN Data Attributes Documentation
+
+#### New Concept: Event Delegation
+- What it is: Pattern for handling events on multiple elements through a parent
+- How it works: Uses event bubbling to catch events at parent level
+- Why it's useful: Improves performance and handles dynamic elements
+- Resources: JavaScript.info Event Delegation
+
+### Best Practices Learned
+- **New Practice:** Custom Class Implementation
+  - Why it's important: Provides structured approach to organizing data, enabling encapsulation and methods
+  - How to implement:
+    ```javascript
+    class Habit {
+        constructor(name) {
+            this.name = name;
+        }
+    }
+    ```
+
+- **New Practice:** Event Listener Pattern
+  - Why it's important: Ensures proper timing of data access and user interaction handling
+  - How to implement:
+    ```javascript
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const value = input.value;
+        // Handle form submission
     });
-}
+    ```
 
-```
-**Blur Event**
-
-The blur event fires when an element loses focus
-Used in our application for saving edits when users finish editing a cell
-Example analogy: Think of it like finishing chopping vegetables - once you're done (blur), you move on to the next step
-
-**Data Attributes**
-
-Custom data attributes are used to store metadata about table cells:
-
-data-index: Stores the row index
-data-field: Identifies the field type (name or goal)
-
-Think of data attributes like labels on storage boxes:
-
-The box (element) contains the content
-Labels (data attributes) tell us what's inside and where it belongs
-Must start with "data-" but can be named anything after that
-Cannot use dynamic values like ${habit.name} as attribute names
-
-template literal syntax ${index} 
-
-event.target refers to the specific element that triggered the element, so the cell.
-
-custom data attributes can be anything as long as they start with data-
-
-for of or for in: 
-
-## Things I forgot about:
-Accessing Input Value Too Early: 
-I tried to log habitInput.value immediately on page load, before the user interacted with the form. 
-Improvement: Always retrieve input values after user action (e.g., form submission or button click).
-
-Missing Event Listener: 
-I didn’t have an event listener on the form to handle user input submission. 
-Improvement: Use event listeners to capture form data and prevent default form behavior when needed.
-
-Incorrect Button Attribute: 
-The button tag had action="submit", which is not correct. 
-Improvement: Use type="submit" for form submission buttons.
-
-
-## Review ( Exam 10/06 ): 
-Arrow functions ? 
-object Object ? 
-closure ??
-
-How to switch between branches on GitHub and locally.
-Why are there discrepancies between local and remote branches.
-How to resolve conflicts between branches.
-How to delete branches and recover changes.
-How to understand the output of git branch -a.
-
-File Management:
-Why are there extra files on my local machine that aren't on GitHub.
-How to remove files from a Git repository.
-How to understand the output of git status and ls -la.
-
-General Git Concepts:
-What is a detached HEAD state.
-How to pull changes from a remote repository.
-How to create and delete branches.
-
-
-
-## Problems and Solutions 
-
-
-**Problem: Inefficent Iterative Build / Cumulative Output
-**
-```javascript
-for (count = 0; count <= habit_data.length; count ++) {
-      let habit = habit_data[count]
-      let row = `<tr>
-                  <td>${habit.name} </td>
-                  <td>${habit.goal} </td>
-              </tr>`;
-      tableBody.innerHTML += row;
-  }
- 
-```
-**Solution: So SIMPLE 
-**
-
-let newHabit = habit_data[habit_data.length - 1]; // Get the last added habit
-
-```javascript
-let newRow = `<tr>
-                <td>${newHabit.name}</td>
-                <td>${newHabit.goal}</td>
-             </tr>`;
-
-```
-// Append the new row without duplicating previous ones
-tableBody.innerHTML += newRow;
-
-
+- **New Practice:** Git Branch Management
+  - Why it's important: Maintains clean project history and enables feature isolation
+  - How to implement:
+    ```bash
+    git checkout -b feature-branch
+    git add .
+    git commit -m "Feature description"
+    git push origin feature-branch
+    ```
