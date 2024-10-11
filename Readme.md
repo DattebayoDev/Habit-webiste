@@ -51,8 +51,9 @@ Setting up core habit tracking features
 ### Phase 1 (Current)
 
  Set up project structure  
- Integrate FullCalendar  
- Create habit tracking table  
+~~ Integrate FullCalendar 
+Create your own Calendar  
+Create habit tracking table  
  Implement basic habit management  
 
 ### Phase 2 (Upcoming)  

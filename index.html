@@ -10,7 +10,7 @@
         margin: 5px;
         padding: 5px;
       }
-      table,
+      table *,
       .container div,
       button {
         border: 1px solid black;
@@ -22,11 +22,12 @@
         justify-content: center;
         margin-top: 15%;
       }
+
     </style>
   </head>
   <body>
     <div id="calendar"> </div>
-    <!-- <div class="container">
+    <div class="container">
       <form id="habitForm">
         <div class="habitInput">
           <label for="habitInput"> Habit Name </label>
@@ -42,44 +43,36 @@
         <thead>
           <tr>
             <th>Habit's</th>
+            <th id="past">  </th>
+            <th id="present">  </th>
+            <th id="future">  </th>
             <th>Goal</th>
           </tr>
         </thead>
         <tbody id="tableBody">
-          <tr></tr>
+          
         </tbody>
       </table>
-    </div> -->
+    </div>
     <script src="main.js"></script>
     <script> 
-        document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
+  //     document.addEventListener('DOMContentLoaded', function() {
+  //   var calendarEl = document.getElementById('calendar');
     
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'timeGridWeek',
-      initialDate: '2024-10-07',
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'timeGridWeek,timeGridDay'
-      },
-      datesSet: function(info) {
-        removeTbody(calendarEl);
-      },
-    });
+  //   var calendar = new FullCalendar.Calendar(calendarEl, {
+  //     initialView: 'dayGridWeek',
+  //     initialDate: '2024-10-07',
+  //     headerToolbar: {
+  //       left: 'prev,next today',
+  //       center: 'title',
+  //       right: ''
+  //     },
+      
+  //   });
     
-    calendar.render();
-    function removeTbody(calendarElement) {
-      const fcTable = calendarElement.querySelector('tbody');
-      if (fcTable) {
-          fcTable.remove(); 
-          console.log('Table removed');
-          
-      }
-    }
-    // Initially remove the tbody when the calendar first loads
-    removeTbody(calendarEl);
-  });
+  //   calendar.render();
+    
+  // }); 
     </script>
   </body>
 </html>
