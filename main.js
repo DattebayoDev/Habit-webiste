@@ -5,7 +5,7 @@ class Habit {
     this.dates = dates;
   }
 }
-
+const test = "working";
 window.addEventListener("DOMContentLoaded", () => {
   customDate();
   displayTable();
@@ -34,7 +34,8 @@ let future = present + 1;
 let tableBody = document.getElementById("tableBody");
 
 let habitData = JSON.parse(localStorage.getItem("habitData")) || [];
-console.log(habitData)
+console.log(habitData);
+
 addBtn.addEventListener("click", addHabit);
 function addHabit() {
   let habit = new Habit(habitInput.value, habitGoal.value, []);
@@ -44,45 +45,58 @@ function addHabit() {
 }
 
 function displayTable() {
+  let tableHeaderRows = document.getElementById("tableHeaderRow").textContent;
   tableBody.innerHTML = " ";
+
+  cleanTableHeader(tableHeaderRows);
 
   for (n = 0; n < habitData.length; n++) {
     let habit = habitData[n];
-    row = `<tr> 
-    <td> ${habit.name} </td>
-    <td> <input class="checkBox" data-habit-index= ${n} id="past" ${ habit.dates.includes(past) ? "checked" : ""   }  type="checkbox"></td>
-    <td> <input class="checkBox" data-habit-index= ${n} id="present" ${ habit.dates.includes(present) ? "checked" : ""   } type="checkbox"></td>
-    <td> <input class="checkBox" data-habit-index= ${n} id="future" ${ habit.dates.includes(future) ? "checked" : ""   } type="checkbox"> </td>
-    <td> ${habit.goal} </td>
-    `;
+  
+    let datesArray = Object.values(habit.dates)
+    
+    
+    let row = document.createElement("tr");
 
-  tableBody.innerHTML += row;
+    for (header of x) {
+
+      if (header === "Habit's") {
+        createLabelCell(row, habit.name);
+      } else if (parseInt(header) === past) {
+        createInputCell(row, past, 0, datesArray);
+      } else if (parseInt(header) === present) {
+        createInputCell(row, present, 1, datesArray);
+      } else if (parseInt(header) === future) {
+        createInputCell(row, future, 2, datesArray);
+      } else if (header === "Goal") {
+        createLabelCell(row, habit.goal);
+      }
+    }
+
+    tableBody.appendChild(row);
   }
 }
 
- 
 function addCheckBoxListener() {
   let checkBoxes = document.querySelectorAll(".checkBox");
   checkBoxes.forEach((checkBox) => {
     checkBox.addEventListener("click", (event) => {
       habitIndex = checkBox.getAttribute("data-habit-index");
-      switch (checkBox.id) {
-        case "past":
-          habit = habitData[habitIndex];
-          habit.dates.push(past);
-          break;
-        case "present":
-          habit = habitData[habitIndex];
-          habit.dates.push(present);
-          break;
-        case "future":
-          habit = habitData[habitIndex];
-          habit.dates.push(future);
-          break;
-      }
+      checkBoxIndex = checkBox.getAttribute("data-check-box-index");
+      const datesObj = [past, present, future];
+      addDate(datesObj[checkBoxIndex]);
       localStorage.setItem("habitData", JSON.stringify(habitData));
     });
   });
+}
+
+
+function addDate(date) {
+  habit = habitData[habitIndex];
+  if (habit.dates.includes(date)) {
+  } else {
+    habit.dates.push(date);
+  }
 }
 
 function customDate() {
@@ -91,11 +105,33 @@ function customDate() {
   futureHeader.textContent = future;
 }
 
-// console.log("working")
-// console.log("past");
-// console.log("HabitData", habitData)
-// habit = habitData[0]
-// console.log("Habit", habit)
-// console.log("Habit Dates", habit.dates)
-// habit.dates.push(past)
-// console.log("Habit Dates", habit.dates)
+function createInputCell(row, date, count, array) {
+  let inputTd = document.createElement("td");
+  let input = document.createElement("input");
+  input.className = "checkBox";
+  input.type = "checkbox";
+  input.dataset.habitIndex = n;
+  input.dataset.checkBoxIndex = count; // unique
+  if (array.includes(date)){
+    input.checked = true
+  } 
+
+  inputTd.appendChild(input);
+  row.appendChild(inputTd);
+}
+
+function createLabelCell(row, name) {
+  let label = document.createElement("td"); // creates a new data cell
+  label.textContent = name;
+  row.appendChild(label);
+}
+
+function cleanTableHeader(obj) {
+  x = obj.split("\n");
+  x.splice(0, 1);
+  x.splice(-1, 1);
+
+  for (let i = 0; i < x.length; i++) {
+    x[i] = x[i].trim();
+  }
+}
