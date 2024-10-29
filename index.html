@@ -3,61 +3,59 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js "></script> -->
     <title>Habit Website</title>
     <style>
       * {
-        margin: 20px;
-        
+        margin: 5px;
+        padding: 5px;
       }
-      html {
-        background: darkgrey;
+      table *,
+      .container div,
+      button {
+        border: 1px solid black;
+        background-color: beige;
       }
+
       body {
-        margin-top: 20%;
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        margin-top: 15%;
       }
+
     </style>
   </head>
   <body>
+  
     <div class="container">
-      <form id="habitForm" autocomplete="off" >
-        <div>
-          <label for="habitName"> Habit Name </label>
-          <input type="text" id="habitName" />
+      <form id="habitForm">
+        <div class="habitInput">
+          <label for="habitInput"> Habit Name </label>
+          <input type="text" id="habitInput" value="dummy" />
         </div>
-        <div> 
-          <label for="habitGoal"> Goal</label>
-          <input type="number" id="habitGoal" />
+        <div class="habitGoal">
+          <label for="habitInput"> Habit Goal </label>
+          <input type="number" id="habitGoal" value="1" />
         </div>
-        <button id="habitBtn" type="submit"> Submit</button>
-      </form>
-        <div>  Habit Data
-        <p  id='displayData'>  </p> </div>
-     
-    </div>
-
-
-
-
-
-    <script >
-        let habitForm = document.getElementById("habitForm") 
-        let habitName = document.getElementById("habitName");
-        let habitGoal = document.getElementById("habitGoal");
-        let displayData = document.getElementById("displayData")
-        let submitBtn = document.getElementById('habitBtn')
-
-        habitForm.onsubmit = (event) => {
-          event.preventDefault()
-        };
-        
-        displayData.textContent = (habitName.value)
-
-        submitBtn.onclick = (event) => {
-          habitName.input = ' '
+        <button id="addBtn" type="submit">Add</button>
+       </form>
+      <table>
+        <thead>
+          <tr id="tableHeaderRow">
+            <th>Habit's</th>
+            <th id="past">  </th>
+            <th id="present">  </th>
+            <th id="future">  </th>
+            <th>Goal</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
           
-        }
-
+        </tbody>
+      </table>
+    </div>
+    <script src="main.js"></script>
+    <script> 
     </script>
   </body>
 </html>
