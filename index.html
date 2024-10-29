@@ -1,21 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Habit Website </title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Habit Website</title>
+    <style>
+      * {
+        margin: 20px;
+        
+      }
+      html {
+        background: darkgrey;
+      }
+      body {
+        margin-top: 20%;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
     <div class="container">
-        <form id="habitForm">
-            <div class="habitInput"> 
-                <label for="habitInput"> Habit Name </label>
-                <input type="text" id="habitInput"> 
-            </div> 
-            <button id='habitBtn' type="submit"> Submit </button>
-        </form>
-
+      <form id="habitForm" autocomplete="off" >
+        <div>
+          <label for="habitName"> Habit Name </label>
+          <input type="text" id="habitName" />
+        </div>
+        <div> 
+          <label for="habitGoal"> Goal</label>
+          <input type="number" id="habitGoal" />
+        </div>
+        <button id="habitBtn" type="submit"> Submit</button>
+      </form>
+        <div>  Habit Data
+        <p  id='displayData'>  </p> </div>
+     
     </div>
-    <script src="main.js">  </script>
-</body>
+
+
+
+
+
+    <script >
+        let habitForm = document.getElementById("habitForm") 
+        let habitName = document.getElementById("habitName");
+        let habitGoal = document.getElementById("habitGoal");
+        let displayData = document.getElementById("displayData")
+        let submitBtn = document.getElementById('habitBtn')
+
+        habitForm.onsubmit = (event) => {
+          event.preventDefault()
+        };
+        
+        displayData.textContent = (habitName.value)
+
+        submitBtn.onclick = (event) => {
+          habitName.input = ' '
+          
+        }
+
+    </script>
+  </body>
 </html>
