@@ -46,15 +46,14 @@ function addHabit() {
 
 function displayTable() {
   let tableHeaderRows = document.getElementById("tableHeaderRow").textContent;
-  tableBody.innerHTML = " ";
-
   cleanTableHeader(tableHeaderRows);
+  
+  tableBody.innerHTML = " ";
 
   for (n = 0; n < habitData.length; n++) {
     let habit = habitData[n];
   
     let datesArray = Object.values(habit.dates)
-    
     
     let row = document.createElement("tr");
 
