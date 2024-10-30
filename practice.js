@@ -58,15 +58,15 @@ function createRowForHabit(habitData) {
   }
 }
 
-function searchHeader(habit, datesArray, row) {
+function searchHeader(habit, datesArray, row, state) {
   for (header of x) {
     if (header === "Habit's") {
       createLabelCell(row, habit.name);
-    } else if (parseInt(header) === past) {
-      createInputCell(row, past, 0, datesArray);
-    } else if (parseInt(header) === present) {
+    } else if (parseInt(header) === state) {
+      createInputCell(row, state, 0, datesArray);
+    } else if (parseInt(header) === state) {
       createInputCell(row, present, 1, datesArray);
-    } else if (parseInt(header) === future) {
+    } else if (parseInt(header) === state) {
       createInputCell(row, future, 2, datesArray);
     } else if (header === "Goal") {
       createLabelCell(row, habit.goal);
@@ -94,4 +94,9 @@ function createInputCell(row, date, count, array) {
   row.appendChild(inputTd);
 }
 
+function add(a, b){
+  return a + b
+}
 
+module.exports = add;
+module.exports = cleanTableHeader;

@@ -45,8 +45,8 @@ function addHabit() {
 }
 
 function displayTable() {
-  let tableHeaderRows = document.getElementById("tableHeaderRow").textContent;
-  cleanTableHeader(tableHeaderRows);
+  const tableHeaderRows = document.getElementById("tableHeaderRow");
+  const headers = Array.from(tableHeaderRows.getElementsByTagName('th')).map(th => th.textContent)
   
   tableBody.innerHTML = " ";
 
@@ -57,7 +57,7 @@ function displayTable() {
     
     let row = document.createElement("tr");
 
-    for (header of x) {
+    for (header of headers) {
 
       if (header === "Habit's") {
         createLabelCell(row, habit.name);
@@ -125,12 +125,7 @@ function createLabelCell(row, name) {
   row.appendChild(label);
 }
 
-function cleanTableHeader(obj) {
-  x = obj.split("\n");
-  x.splice(0, 1);
-  x.splice(-1, 1);
 
-  for (let i = 0; i < x.length; i++) {
-    x[i] = x[i].trim();
-  }
-}
+
+
+
