@@ -8,21 +8,6 @@
 //   displayTable();
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function cleanTableHeader(headers) {
   x = headers.split("\n");
   x.splice(0, 1);
@@ -33,11 +18,8 @@ function cleanTableHeader(headers) {
   }
 }
 
-
-
 function displayTable() {
   let tableHeaderRows = document.getElementById("tableHeaderRow").textContent;
-  cleanTableHeader(tableHeaderRows);
 
   createRowForHabit(habitData);
 }
@@ -80,7 +62,7 @@ function createLabelCell(row, name) {
   row.appendChild(label);
 }
 
-function createInputCell(row, date, count, array) {
+function createInputCell(row, date, count, array, n) {
   let inputTd = document.createElement("td");
   let input = document.createElement("input");
   input.className = "checkBox";
@@ -94,9 +76,4 @@ function createInputCell(row, date, count, array) {
   row.appendChild(inputTd);
 }
 
-function add(a, b){
-  return a + b
-}
-
-module.exports = add;
-module.exports = cleanTableHeader;
+module.exports = { createLabelCell, createInputCell };

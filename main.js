@@ -105,6 +105,7 @@ function customDate() {
 }
 
 function createInputCell(row, date, count, array) {
+  //console.log("row", row, "date", date, "count", count,"array", array,"n",  n)
   let inputTd = document.createElement("td");
   let input = document.createElement("input");
   input.className = "checkBox";
@@ -116,6 +117,8 @@ function createInputCell(row, date, count, array) {
   } 
 
   inputTd.appendChild(input);
+  console.log("inputTd", inputTd)
+
   row.appendChild(inputTd);
 }
 
