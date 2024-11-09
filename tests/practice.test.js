@@ -41,14 +41,15 @@ describe("createInputCell", () => {
     })
 
     const inputCell = row.lastChild
-    expect(inputCell.dataset.checkBoxIndex).toBe(2)
+    const input = inputCell.lastChild
+    expect(input.dataset.checkBoxIndex).toBe("2")
   })
 })
 
 
 
 
-// function createInputCell(row, date, count, array) {
+// function createInputCell(row, date, count, array, n) {
 //   let inputTd = document.createElement("td");
 //   let input = document.createElement("input");
 //   input.className = "checkBox";

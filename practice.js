@@ -63,17 +63,29 @@ function createLabelCell(row, name) {
 }
 
 function createInputCell(row, date, count, array, n) {
-  let inputTd = document.createElement("td");
+  let dataCell = document.createElement("td");
   let input = document.createElement("input");
+  addAttributes(input, n, count);
+  isChecked(array, date);
+  addInputCell(row, dataCell, input);
+}
+
+function isChecked(array, date) {
+  if (array.includes(date)) {
+    input.checked = true;
+  }
+}
+
+function addAttributes(input, n, count) {
   input.className = "checkBox";
   input.type = "checkbox";
   input.dataset.habitIndex = n;
   input.dataset.checkBoxIndex = count; // unique
-  if (array.includes(date)) {
-    input.checked = true;
-  }
-  inputTd.appendChild(input);
-  row.appendChild(inputTd);
+}
+
+function addInputCell(row, dataCell, input) {
+  dataCell.appendChild(input);
+  row.appendChild(dataCell);
 }
 
 module.exports = { createLabelCell, createInputCell };
