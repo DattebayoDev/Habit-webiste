@@ -46,20 +46,27 @@ function addHabit() {
 
 function displayTable() {
   const tableHeaderRows = document.getElementById("tableHeaderRow");
-  const headers = Array.from(tableHeaderRows.getElementsByTagName('th'),(th) => th.textContent)
-
+  const headers = Array.from(
+    tableHeaderRows.getElementsByTagName("th"),
+    (th) => 
+      th.textContent
+      // console.log(th);
+    
+  );
   tableBody.innerHTML = " ";
 
   for (mainCounter = 0; mainCounter < habitData.length; mainCounter++) {
     let habit = habitData[mainCounter];
-  
-    let datesArray = Object.values(habit.dates)
-    
+    console.log(habit)
+    let datesArray = Object.values(habit.dates);
+
     let row = document.createElement("tr");
     for (header of headers) {
-
+      console.log(typeof(header))
       if (header === "Habit's") {
         createLabelCell(row, habit.name);
+      } else if (header === "Actions") {
+        createDeleteDataCell(row);
       } else if (parseInt(header) === past) {
         createInputCell(row, past, 0, datesArray, mainCounter);
       } else if (parseInt(header) === present) {
@@ -90,7 +97,6 @@ function addCheckBoxListener() {
   });
 }
 
-
 function addDate(date) {
   habit = habitData[habitIndex];
   if (habit.dates.includes(date)) {
@@ -105,24 +111,6 @@ function customDate() {
   futureHeader.textContent = future;
 }
 
-// function createInputCell(row, date, count, array) {
-//   //console.log("row", row, "date", date, "count", count,"array", array,"n",  n)
-//   let inputTd = document.createElement("td");
-//   let input = document.createElement("input");
-//   input.className = "checkBox";
-//   input.type = "checkbox";
-//   input.dataset.habitIndex = n;
-//   input.dataset.checkBoxIndex = count; // unique
-//   if (array.includes(date)){
-//     input.checked = true
-//   } 
-
-//   inputTd.appendChild(input);
-//   console.log("inputTd", inputTd)
-
-//   row.appendChild(inputTd);
-// }
-
 function createInputCell(row, date, count, array, n) {
   let inputTd = document.createElement("td");
   let input = document.createElement("input");
@@ -135,9 +123,9 @@ function createInputCell(row, date, count, array, n) {
   }
   inputTd.appendChild(input);
   row.appendChild(inputTd);
-  x = row.lastChild
-  y = x.lastChild
-  console.log(y.dataset.checkBoxIndex)
+  x = row.lastChild;
+  y = x.lastChild;
+  console.log(y.dataset.checkBoxIndex);
 }
 
 function createLabelCell(row, name) {
@@ -146,7 +134,11 @@ function createLabelCell(row, name) {
   row.appendChild(label);
 }
 
-
-
-
-
+function createDeleteDataCell(row, array, n) {
+  console.log("createDeleteDataCell working");
+  const deleteTd = document.createElement("td");
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "Delete";
+  deleteTd.appendChild(deleteBtn);
+  row.appendChild(deleteTd);
+}
