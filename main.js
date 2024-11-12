@@ -57,16 +57,16 @@ function displayTable() {
 
   for (mainCounter = 0; mainCounter < habitData.length; mainCounter++) {
     let habit = habitData[mainCounter];
-    console.log(habit)
+    // console.log(habit)
     let datesArray = Object.values(habit.dates);
 
     let row = document.createElement("tr");
     for (header of headers) {
-      console.log(typeof(header))
+      // console.log(typeof(header))
       if (header === "Habit's") {
         createLabelCell(row, habit.name);
       } else if (header === "Actions") {
-        createDeleteDataCell(row);
+        createDeleteDataCell(row, mainCounter, habitData);
       } else if (parseInt(header) === past) {
         createInputCell(row, past, 0, datesArray, mainCounter);
       } else if (parseInt(header) === present) {
@@ -125,7 +125,7 @@ function createInputCell(row, date, count, array, n) {
   row.appendChild(inputTd);
   x = row.lastChild;
   y = x.lastChild;
-  console.log(y.dataset.checkBoxIndex);
+  // console.log(y.dataset.checkBoxIndex);
 }
 
 function createLabelCell(row, name) {
@@ -134,11 +134,20 @@ function createLabelCell(row, name) {
   row.appendChild(label);
 }
 
-function createDeleteDataCell(row, array, n) {
-  console.log("createDeleteDataCell working");
+function createDeleteDataCell(row, mainCounter, habitArray) {
+  // console.log("createDeleteDataCell working");
   const deleteTd = document.createElement("td");
-  const deleteBtn = document.createElement("button");
+  const deleteBtn = document.createElement("button")
   deleteBtn.textContent = "Delete";
+  deleteBtn.addEventListener("click", () => deleteLogic(mainCounter, habitArray))
   deleteTd.appendChild(deleteBtn);
   row.appendChild(deleteTd);
+}
+
+function deleteLogic(mainCounter, habitArray){
+  // console.log("DELETE", habitArray[mainCounter])
+  habitArray.splice(mainCounter, 1)
+  console.log(habitArray)
+  localStorage.setItem("habitData", JSON.stringify(habitArray))
+  displayTable()
 }

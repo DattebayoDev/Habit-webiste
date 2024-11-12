@@ -66,15 +66,9 @@ function createInputCell(row, date, count, array, n) {
   let dataCell = document.createElement("td");
   let input = document.createElement("input");
   addAttributes(input, n, count);
-  isChecked(array, date);
   addInputCell(row, dataCell, input);
 }
 
-function isChecked(array, date) {
-  if (array.includes(date)) {
-    input.checked = true;
-  }
-}
 
 function addAttributes(input, n, count) {
   input.className = "checkBox";
@@ -83,9 +77,6 @@ function addAttributes(input, n, count) {
   input.dataset.checkBoxIndex = count; // unique
 }
 
-function addInputCell(row, dataCell, input) {
-  dataCell.appendChild(input);
-  row.appendChild(dataCell);
-}
+
 
 module.exports = { createLabelCell, createInputCell };
