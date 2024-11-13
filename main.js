@@ -48,60 +48,72 @@ function displayTable() {
   const tableHeaderRows = document.getElementById("tableHeaderRow");
   const headers = Array.from(
     tableHeaderRows.getElementsByTagName("th"),
-    (th) => 
-      th.textContent
-      // console.log(th);
-    
+    (th) => th.textContent
   );
   tableBody.innerHTML = " ";
+  generateHabitRow(headers);
+}
 
+function generateHabitRow(headers) {
   for (mainCounter = 0; mainCounter < habitData.length; mainCounter++) {
-    let habit = habitData[mainCounter];
-    // console.log(habit)
-    let datesArray = Object.values(habit.dates);
-
-    let row = document.createElement("tr");
-    for (header of headers) {
-      // console.log(typeof(header))
-      if (header === "Habit's") {
-        createLabelCell(row, habit.name);
-      } else if (header === "Actions") {
-        createDeleteDataCell(row, mainCounter, habitData);
-      } else if (parseInt(header) === past) {
-        createInputCell(row, past, 0, datesArray, mainCounter);
-      } else if (parseInt(header) === present) {
-        createInputCell(row, present, 1, datesArray, mainCounter);
-      } else if (parseInt(header) === future) {
-        createInputCell(row, future, 2, datesArray, mainCounter);
-      } else if (header === "Goal") {
-        createLabelCell(row, habit.goal);
-      }
-    }
-
+    const habit = habitData[mainCounter];
+    const datesArray = Object.values(habit.dates);
+    const row = document.createElement("tr");
+    populateRowCells(headers, datesArray, row, habit);
     tableBody.appendChild(row);
   }
-  // x = tableBody.lastChild.lastChild
-  // console.log(x)
+}
+
+function populateRowCells(headers, datesArray, row, habit) {
+  const dateConfig = {
+    [past]: 0,
+    [present]: 1,
+    [future]: 2,
+  };
+
+  for (header of headers) {
+    let headerNum = parseInt(header)
+    if (Object.hasOwn(dateConfig, headerNum)) {
+      createInputCell(row, headerNum, dateConfig[headerNum], datesArray, mainCounter);
+    } else if (header === "Habit's") {
+      createLabelCell(row, habit.name);
+    } else if (header === "Actions") {
+      createDeleteDataCell(row, mainCounter, habitData);
+    } else if (header === "Goal") {
+      createLabelCell(row, habit.goal);
+    }
+  }
 }
 
 function addCheckBoxListener() {
   let checkBoxes = document.querySelectorAll(".checkBox");
   checkBoxes.forEach((checkBox) => {
     checkBox.addEventListener("click", (event) => {
+      // console.log(event.target)
       habitIndex = checkBox.getAttribute("data-habit-index");
       checkBoxIndex = checkBox.getAttribute("data-check-box-index");
       const datesObj = [past, present, future];
-      addDate(datesObj[checkBoxIndex]);
+      updateCheckbox(datesObj[checkBoxIndex], event.target);
       localStorage.setItem("habitData", JSON.stringify(habitData));
     });
   });
 }
 
-function addDate(date) {
+function updateCheckbox(date, element) {
   habit = habitData[habitIndex];
+  console.log(element.checked);
+  // console.log("Checkbox Index" ,checkBoxIndex)
+  // console.log("Habit Dates", habit.dates)
   if (habit.dates.includes(date)) {
+    // habit.dates.splice(checkBoxIndex, 1)
   } else {
     habit.dates.push(date);
+  }
+
+  if (element.checked) {
+    console.log(element.checkBoxIndex, "is checked");
+  } else {
+    console.log(element.checkBoxIndex, "is unchecked");
   }
 }
 
@@ -118,9 +130,10 @@ function createInputCell(row, date, count, array, n) {
   input.type = "checkbox";
   input.dataset.habitIndex = n;
   input.dataset.checkBoxIndex = count; // unique
-  if (array.includes(date)) {
-    input.checked = true;
-  }
+  isChecked(input, count, date, array);
+  // if (array.includes(date)) {
+  //   input.checked = true;
+  // }
   inputTd.appendChild(input);
   row.appendChild(inputTd);
   x = row.lastChild;
@@ -137,17 +150,30 @@ function createLabelCell(row, name) {
 function createDeleteDataCell(row, mainCounter, habitArray) {
   // console.log("createDeleteDataCell working");
   const deleteTd = document.createElement("td");
-  const deleteBtn = document.createElement("button")
+  const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
-  deleteBtn.addEventListener("click", () => deleteLogic(mainCounter, habitArray))
+  deleteBtn.addEventListener("click", () =>
+    deleteLogic(mainCounter, habitArray)
+  );
   deleteTd.appendChild(deleteBtn);
   row.appendChild(deleteTd);
 }
 
-function deleteLogic(mainCounter, habitArray){
+function deleteLogic(mainCounter, habitArray) {
   // console.log("DELETE", habitArray[mainCounter])
-  habitArray.splice(mainCounter, 1)
-  console.log(habitArray)
-  localStorage.setItem("habitData", JSON.stringify(habitArray))
-  displayTable()
+  habitArray.splice(mainCounter, 1);
+  console.log(habitArray);
+  localStorage.setItem("habitData", JSON.stringify(habitArray));
+  displayTable();
+}
+
+function isChecked(input, index, date, datesArray) {
+  if (date === datesArray[index]) {
+    console.log("1");
+    input.checked = true;
+  } else {
+    console.log("2");
+    input.checked = false;
+  }
+  // console.log("Input", input, "Date", date, "DatesArray", datesArray)
 }

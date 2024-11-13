@@ -80,3 +80,101 @@ function addAttributes(input, n, count) {
 
 
 module.exports = { createLabelCell, createInputCell };
+
+
+
+
+
+
+
+
+function displayTable() {
+  const tableHeaderRows = document.getElementById("tableHeaderRow");
+  const headers = Array.from(
+    tableHeaderRows.getElementsByTagName("th"),
+    (th) => 
+      th.textContent
+    
+  );
+  tableBody.innerHTML = " ";
+  generateHabitRow(headers)
+}
+
+function generateHabitRow(headers){
+  for (mainCounter = 0; mainCounter < habitData.length; mainCounter++) {
+    const habit = habitData[mainCounter];
+    const datesArray = Object.values(habit.dates);
+    const row = document.createElement("tr");
+    populateRowCells(headers, datesArray, row, habit)
+    tableBody.appendChild(row);
+  }
+}
+
+function populateRowCells(headers, datesArray, row, habit){
+  const dateConfig = {
+    [past] : 0,
+    [present] : 1,
+    [future] : 2
+  }
+
+  console.log(dateConfig)
+
+  for (header of headers) {
+    if (header === "Habit's") {
+      createLabelCell(row, habit.name);
+    } else if (header === "Actions") {
+      createDeleteDataCell(row, mainCounter, habitData);
+    } else if (parseInt(header) === past) {
+      createInputCell(row, past, 0, datesArray, mainCounter);
+    } else if (parseInt(header) === present) {
+      createInputCell(row, present, 1, datesArray, mainCounter);
+    } else if (parseInt(header) === future) {
+      createInputCell(row, future, 2, datesArray, mainCounter);
+    } else if (header === "Goal") {
+      createLabelCell(row, habit.goal);
+    }
+  }
+}
+
+
+
+
+function displayTable() {
+  const tableHeaderRows = document.getElementById("tableHeaderRow");
+  const headers = Array.from(
+    tableHeaderRows.getElementsByTagName("th"),
+    (th) => 
+      th.textContent
+      // console.log(th);
+    
+  );
+  tableBody.innerHTML = " ";
+
+  for (mainCounter = 0; mainCounter < habitData.length; mainCounter++) {
+    let habit = habitData[mainCounter];
+    // console.log(habit)
+    let datesArray = Object.values(habit.dates);
+
+    let row = document.createElement("tr");
+    for (header of headers) {
+      // console.log(typeof(header))
+      if (header === "Habit's") {
+        createLabelCell(row, habit.name);
+      } else if (header === "Actions") {
+        createDeleteDataCell(row, mainCounter, habitData);
+      } else if (parseInt(header) === past) {
+        createInputCell(row, past, 0, datesArray, mainCounter);
+      } else if (parseInt(header) === present) {
+        createInputCell(row, present, 1, datesArray, mainCounter);
+      } else if (parseInt(header) === future) {
+        createInputCell(row, future, 2, datesArray, mainCounter);
+      } else if (header === "Goal") {
+        createLabelCell(row, habit.goal);
+      }
+    }
+
+    tableBody.appendChild(row);
+  }
+  // x = tableBody.lastChild.lastChild
+  // console.log(x)
+}
