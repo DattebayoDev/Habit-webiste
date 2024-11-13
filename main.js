@@ -42,6 +42,7 @@ function addHabit() {
   habitData.push(habit);
   localStorage.setItem("habitData", JSON.stringify(habitData));
   displayTable();
+  addCheckBoxListener()
 }
 
 function displayTable() {
@@ -72,9 +73,15 @@ function populateRowCells(headers, datesArray, row, habit) {
   };
 
   for (header of headers) {
-    let headerNum = parseInt(header)
+    let headerNum = parseInt(header);
     if (Object.hasOwn(dateConfig, headerNum)) {
-      createInputCell(row, headerNum, dateConfig[headerNum], datesArray, mainCounter);
+      createInputCell(
+        row,
+        headerNum,
+        dateConfig[headerNum],
+        datesArray,
+        mainCounter
+      );
     } else if (header === "Habit's") {
       createLabelCell(row, habit.name);
     } else if (header === "Actions") {
@@ -89,32 +96,25 @@ function addCheckBoxListener() {
   let checkBoxes = document.querySelectorAll(".checkBox");
   checkBoxes.forEach((checkBox) => {
     checkBox.addEventListener("click", (event) => {
-      // console.log(event.target)
       habitIndex = checkBox.getAttribute("data-habit-index");
       checkBoxIndex = checkBox.getAttribute("data-check-box-index");
       const datesObj = [past, present, future];
-      updateCheckbox(datesObj[checkBoxIndex], event.target);
+      updateCheckbox(datesObj[checkBoxIndex], habitIndex, event.target);
       localStorage.setItem("habitData", JSON.stringify(habitData));
     });
   });
 }
-
-function updateCheckbox(date, element) {
+// updates the checkboxes based on if it is clicked or not
+function updateCheckbox(date, habitIndex, element) {
   habit = habitData[habitIndex];
-  console.log(element.checked);
-  // console.log("Checkbox Index" ,checkBoxIndex)
-  // console.log("Habit Dates", habit.dates)
-  if (habit.dates.includes(date)) {
-    // habit.dates.splice(checkBoxIndex, 1)
+  if (element.checked){
+    console.log("It is checked")
+    habit.dates.push(date)
   } else {
-    habit.dates.push(date);
+    console.log("It is unchecked removing", date)
+    habit.dates = habit.dates.filter((element) => element !== date)
   }
-
-  if (element.checked) {
-    console.log(element.checkBoxIndex, "is checked");
-  } else {
-    console.log(element.checkBoxIndex, "is unchecked");
-  }
+  localStorage.setItem('HabitData', JSON.stringify(habitData))
 }
 
 function customDate() {
@@ -130,15 +130,11 @@ function createInputCell(row, date, count, array, n) {
   input.type = "checkbox";
   input.dataset.habitIndex = n;
   input.dataset.checkBoxIndex = count; // unique
-  isChecked(input, count, date, array);
-  // if (array.includes(date)) {
-  //   input.checked = true;
-  // }
+  isChecked(input, date, array);
   inputTd.appendChild(input);
   row.appendChild(inputTd);
   x = row.lastChild;
   y = x.lastChild;
-  // console.log(y.dataset.checkBoxIndex);
 }
 
 function createLabelCell(row, name) {
@@ -166,14 +162,11 @@ function deleteLogic(mainCounter, habitArray) {
   localStorage.setItem("habitData", JSON.stringify(habitArray));
   displayTable();
 }
-
-function isChecked(input, index, date, datesArray) {
-  if (date === datesArray[index]) {
-    console.log("1");
+// check to see if the date is within the array
+function isChecked(input, date, datesArray) { 
+  if (datesArray.includes(date)) {
     input.checked = true;
   } else {
-    console.log("2");
     input.checked = false;
   }
-  // console.log("Input", input, "Date", date, "DatesArray", datesArray)
 }
