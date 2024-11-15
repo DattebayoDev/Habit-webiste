@@ -178,3 +178,16 @@ function displayTable() {
   // x = tableBody.lastChild.lastChild
   // console.log(x)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

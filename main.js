@@ -42,7 +42,7 @@ function addHabit() {
   habitData.push(habit);
   localStorage.setItem("habitData", JSON.stringify(habitData));
   displayTable();
-  addCheckBoxListener()
+  addCheckBoxListener();
 }
 
 function displayTable() {
@@ -88,6 +88,8 @@ function populateRowCells(headers, datesArray, row, habit) {
       createDeleteDataCell(row, mainCounter, habitData);
     } else if (header === "Goal") {
       createLabelCell(row, habit.goal);
+    } else if (header === "Completion") {
+      createProgressTdCell(row);
     }
   }
 }
@@ -107,14 +109,14 @@ function addCheckBoxListener() {
 // updates the checkboxes based on if it is clicked or not
 function updateCheckbox(date, habitIndex, element) {
   habit = habitData[habitIndex];
-  if (element.checked){
-    console.log("It is checked")
-    habit.dates.push(date)
+  if (element.checked) {
+    habit.dates.push(date);
+    updatingPoints(habit.dates);
   } else {
-    console.log("It is unchecked removing", date)
-    habit.dates = habit.dates.filter((element) => element !== date)
+    habit.dates = habit.dates.filter((element) => element !== date);
+    updatingPoints(habit.dates)
   }
-  localStorage.setItem('HabitData', JSON.stringify(habitData))
+  localStorage.setItem("HabitData", JSON.stringify(habitData));
 }
 
 function customDate() {
@@ -163,10 +165,31 @@ function deleteLogic(mainCounter, habitArray) {
   displayTable();
 }
 // check to see if the date is within the array
-function isChecked(input, date, datesArray) { 
+function isChecked(input, date, datesArray) {
   if (datesArray.includes(date)) {
     input.checked = true;
   } else {
     input.checked = false;
   }
 }
+
+// progress tracking logic
+
+function createProgressTdCell(row) {
+  const progressDataCell = document.createElement("td");
+  progressDataCell.id = "progressDataCell";
+  progressDataCell.textContent = 0;
+  row.appendChild(progressDataCell);
+}
+
+function updatingPoints(datesArray) {
+  const progressDataCell = document.getElementById("progressDataCell");
+  progressDataCell.textContent = "";
+  let counter = 0;
+  for (date of datesArray){
+    counter += 1
+  }
+  progressDataCell.textContent = counter;
+  return counter
+}
+
