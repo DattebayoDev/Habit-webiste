@@ -65,3 +65,5 @@ console.log(manager.habits)
 
 
 //localStorage.clear()
+
+module.exports = { Habit }
