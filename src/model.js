@@ -18,7 +18,6 @@ class LocalStorageAdapter{
     }
 }
 
-
 class FileStorageAdapter {
     constructor(fileName){
         this.fs = require('fs')
@@ -26,8 +25,14 @@ class FileStorageAdapter {
     }
 
     load(){
-        const readData = this.fs.readFileSync(this.fileName, "utf-8")
-        return JSON.parse(readData)
+        // checks to see if file name exists if not then return an empty array
+        try {
+            const readData = this.fs.readFileSync(this.fileName, "utf-8")
+            return JSON.parse(readData)
+        } catch (error) {
+            console.log(error)
+            return [] 
+        }
     }
 
     save(data){
@@ -35,28 +40,28 @@ class FileStorageAdapter {
     }
 }
 
-storage = new FileStorageAdapter('j')
-console.log(1, storage.constructor)
-
 
 class HabitManager {
   constructor() {
-    const storage = typeof process === 'object' ? new FileStorageAdapter("name"): new LocalStorageAdapter()
-    console.log(storage.constructor.name)
+    this.storage = typeof process === 'object' ? new FileStorageAdapter("habitData.json"): new LocalStorageAdapter()
+    this.habits = this.storage.load()
   }
 
   addHabit(habit, goal, dates = []) {
     habit = new Habit(habit, goal, dates);
     this.habits.push(habit);
+    this.saveHabit()
     return habit;
   }
 
-  saveHabit(habit){
-
+  saveHabit(){
+    this.storage.save(this.habits)
   }
 }
-
 manager = new HabitManager();
-manager.addHabit("dance", 1);
+// manager.addHabit('Sing', 1)
+console.log(manager.habits)
 
 
+
+//localStorage.clear()
