@@ -8,7 +8,7 @@ class Habit {
 const test = "working";
 window.addEventListener("DOMContentLoaded", () => {
   customDate();
-  displayTable();
+  displayTable(customDate());
   addCheckBoxListener();
 });
 
@@ -26,10 +26,6 @@ let pastHeader = document.getElementById("past");
 let presentHeader = document.getElementById("present");
 let futureHeader = document.getElementById("future");
 let checkBox = document.getElementById("checkBox");
-let today = new Date();
-let present = today.getDate();
-let past = present - 1;
-let future = present + 1;
 
 let tableBody = document.getElementById("tableBody");
 
@@ -59,6 +55,7 @@ function generateHabitRow(headers) {
   for (mainCounter = 0; mainCounter < habitData.length; mainCounter++) {
     const habit = habitData[mainCounter];
     const datesArray = Object.values(habit.dates);
+    console.log("Dates Array", datesArray)
     const row = document.createElement("tr");
     populateRowCells(headers, datesArray, row, habit);
     tableBody.appendChild(row);
@@ -66,12 +63,18 @@ function generateHabitRow(headers) {
 }
 
 function populateRowCells(headers, datesArray, row, habit) {
+  let past = customDate()[0]
+  let present = customDate()[1]
+  let future = customDate()[2]
+
   const dateConfig = {
     [past]: 0,
     [present]: 1,
     [future]: 2,
   };
-
+  console.log("past", past, "present", present, "future", future)
+  console.log("Date Config",dateConfig)
+  console.log("headers", headers.filter((header) => parseInt(header)))
   for (header of headers) {
     let headerNum = parseInt(header);
     if (Object.hasOwn(dateConfig, headerNum)) {
@@ -100,11 +103,11 @@ function addCheckBoxListener() {
     checkBox.addEventListener("click", (event) => {
       habitIndex = checkBox.getAttribute("data-habit-index");
       checkBoxIndex = checkBox.getAttribute("data-check-box-index");
-      const datesObj = [past, present, future];
+      const datesObj = customDate();
       updateCheckbox(datesObj[checkBoxIndex], habitIndex, event.target);
       localStorage.setItem("habitData", JSON.stringify(habitData));
     });
-  });
+  }); 
 }
 // updates the checkboxes based on if it is clicked or not
 function updateCheckbox(date, habitIndex, element) {
@@ -118,11 +121,15 @@ function updateCheckbox(date, habitIndex, element) {
   }
   localStorage.setItem("HabitData", JSON.stringify(habitData));
 }
-
 function customDate() {
+  let today = new Date();
+  let present = today.getDate();
+  let past = present - 1;
+  let future = present + 1;
   pastHeader.textContent = past;
   presentHeader.textContent = present;
   futureHeader.textContent = future;
+  return [past, present, future]
 }
 
 function createInputCell(row, date, count, array, n) {
@@ -132,11 +139,10 @@ function createInputCell(row, date, count, array, n) {
   input.type = "checkbox";
   input.dataset.habitIndex = n;
   input.dataset.checkBoxIndex = count; // unique
+  console.log("Input", input, "Date", date)
   isChecked(input, date, array);
   inputTd.appendChild(input);
   row.appendChild(inputTd);
-  x = row.lastChild;
-  y = x.lastChild;
 }
 
 function createLabelCell(row, name) {
@@ -193,3 +199,32 @@ function updatingPoints(datesArray) {
   return counter
 }
 
+function goingBack(customDate){
+  let past = customDate[0]
+  let present = customDate[1]
+  let future = customDate[2]
+  const backBtn = document.getElementById("backBtn")
+  backBtn.addEventListener('click', () => {
+    present -= 1;  
+    past = present - 1;
+    future = present + 1;
+    presentHeader.textContent = present;
+    pastHeader.textContent = past;
+    futureHeader.textContent = future;
+    console.log("----------------------")
+    displayTable()
+
+  })
+  return present
+}
+goingBack(customDate())
+
+
+function backDate(customDate) {
+  // console.log(customDate, "1")
+  customDate = customDate.map((date) => parseInt(date) - 1)
+  // console.log(customDate, "2")
+  return customDate
+
+}
+backDate(customDate())
