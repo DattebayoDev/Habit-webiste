@@ -8,7 +8,7 @@ class View {
     this.tableHeaderRow = document.querySelector("thead");
     this.tableHeaders = Array.from(
       this.tableHeaderRow.querySelectorAll("th"),
-      (header) => header.textContent
+      (header) => header
     );
     this.pastHeader = document.getElementById("past");
     this.presentHeader = document.getElementById("present");
@@ -18,51 +18,62 @@ class View {
   renderTable(habitData) {
     this.tableBody.textContent = "";
     for (let index = 0; index < habitData.length; index++) {
+      const habit = habitData[index];
       const row = this.tableBody.insertRow(index);
-      this.renderRowCells(this.tableHeaders, row, habitData[index]);
-      //   this.renderHabitName(row, habitData[index])
+      this.renderRowCells(this.tableHeaders, row, habit);
+      this.renderCurrentDates(this.tableHeaders, habit, index);
+    }
+  }
+
+  renderCurrentDates(headers, habit, index) {
+    switch (index) {
+      case 2:
+        headers[index].textContent = habit.dates[0];
+        break;
+      case 3:
+        headers[index].textContent = habit.dates[1];
+        break;
+      case 4:
+        headers[index].textContent = habit.dates[2];
+        break;
     }
   }
 
   renderRowCells(headers, row, habit) {
     for (let index = 0; index < headers.length; index++) {
       let cell = row.insertCell(index);
-      this.renderHabitName(index, cell, habit);
+      this.renderCell(index, cell, habit);
     }
   }
 
-  renderHabitName(index, cell, habit) {
-    switch (index) {
-      case 0:
-        const habitName = habit.name;
-        cell.append(habitName);
-        break;
-      case 1:
-        const habitAction = "n/a";
-        cell.append(habitAction);
-        break;
-      case 2:
-        const habitDatePast = habit.dates[0];
-        cell.append(habitDatePast);
-        break;
-      case 3:
-        const habitDatePresent = habit.dates[1];
-        cell.append(habitDatePresent);
-        break;
-      case 4:
-        const habitDateFuture = habit.dates[2];
-        cell.append(habitDateFuture);
-        break;
-      case 5:
-        const habitGoal = habit.goal;
-        cell.append(habitGoal);
-        break;
-      case 6:
-        const habitCompletion = "n/a";
-        cell.append(habitCompletion);
-        break;
+  renderCell(index, cell, habit) {
+    const cellTypes = {
+        0: () => habit.name,
+        1: () => this.renderDeleteButton(),
+        2: () => this.renderCheckbox(),
+        3: () => this.renderCheckbox(),
+        4: () => this.renderCheckbox(),
+        5: () => habit.goal,
+        6: () => "n/a"
+      };
+  
+      const content = cellTypes[index]();
+      cell.append(content);
     }
+
+  renderDeleteButton() {
+    const btn = document.createElement('button')
+    btn.textContent = "Delete"
+    return btn
   }
+
+  renderCheckbox(){
+    const checkbox = document.createElement("input")
+    checkbox.type = 'checkbox'
+    return checkbox
+
+  }
+  
 }
 
 testData = [
