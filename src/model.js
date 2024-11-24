@@ -69,19 +69,19 @@ class HabitManager {
   }
 }
 
-console.log("Before loop");
+// console.log("Before loop");
 for (count = 0; count < 1; count++) {
     const manager = new HabitManager();
-    console.log(manager.habits)
+    // console.log(manager.habits)
     // manager.addHabit("Habit", 1);
 
     manager.deleteHabit(4)
 
-    console.log("Loop iteration:", count);
+    // console.log("Loop iteration:", count);
 }
-console.log("After loop");
+// console.log("After loop");
 
 
 
 
-module.exports = { Habit, HabitManager};
+// module.exports = { Habit, HabitManager}; 
