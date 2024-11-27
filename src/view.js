@@ -39,6 +39,7 @@ class View {
     }
   }
 
+  
   renderRowCells(headers, row, habit) {
     for (let index = 0; index < headers.length; index++) {
       let cell = row.insertCell(index);
@@ -50,9 +51,9 @@ class View {
     const cellTypes = {
         0: () => habit.name,
         1: () => this.renderDeleteButton(),
-        2: () => this.renderCheckbox(),
-        3: () => this.renderCheckbox(),
-        4: () => this.renderCheckbox(),
+        2: () => this.renderCheckbox(index),
+        3: () => this.renderCheckbox(index),
+        4: () => this.renderCheckbox(index),
         5: () => habit.goal,
         6: () => "n/a"
       };
@@ -67,13 +68,20 @@ class View {
     return btn
   }
 
-  renderCheckbox(){
+  renderCheckbox(index){
     const checkbox = document.createElement("input")
     checkbox.type = 'checkbox'
+    checkbox.dataset.habitIndex = index
+    this.checkboxEvent(checkbox)
     return checkbox
-
   }
   
+  checkboxEvent(checkbox){
+    checkbox.addEventListener('click', () => {
+      console.log('working')
+      console.log()
+    })
+  }
 }
 
 testData = [
