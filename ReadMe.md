@@ -18,34 +18,9 @@ How might you verify that all remaining habits are exactly what you expect them 
 
 working on 11/27 
 
-Issues:
+[CRITICAL] View class directly manipulates DOM and handles events - violates separation of concerns
+[CRITICAL] No error handling for DOM element selection in constructor
+[MODERATE] renderCurrentDates uses magic numbers/hardcoded indices
+[MODERATE] Checkbox event handler lacks data persistence
+[MINOR] No performance optimization for repeated DOM queries
 
-renderCell mixes display logic with event handling
-renderCurrentDates tightly couples indices to date positions
-Methods have multiple responsibilities
-
-Improvement areas:
-
-Separate data access from rendering // working
-Extract event handling to dedicated methods
-Reduce parameter passing between render methods
-
-
-Build event binding methods in your View class to handle:
-    Checkbox state changes
-    Delete button clicks
-    Form submission
-
-
-
-
-
-Implement checkbox state persistence by:
-    Tracking dates in your Model
-    Reflecting states in View render methods
-
-
-Create your Controller class to:
-    Connect Model and View
-    Handle event communication
-    Manage data updates
