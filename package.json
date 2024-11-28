@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "habit_project",
   "version": "1.0.0",
   "main": "main.js",

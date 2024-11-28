@@ -51,9 +51,7 @@ class HabitManager {
 
   addHabit(habit, goal, dates = []) {
     habit = new Habit(habit, goal, dates);
-    // console.log("before", this.habits);
     this.habits.push(habit);
-    // console.log("After", this.habits);
 
     this.saveHabit();
     return habit;
@@ -69,19 +67,18 @@ class HabitManager {
   }
 }
 
-// console.log("Before loop");
-for (count = 0; count < 1; count++) {
-    const manager = new HabitManager();
-    // console.log(manager.habits)
-    // manager.addHabit("Habit", 1);
+// // console.log("Before loop");
+// for (let count = 0; count < 1; count++) {
+//     const manager = new HabitManager();
+//     // console.log(manager.habits)
+//     // manager.addHabit("Habit", 1);
 
-    manager.deleteHabit(4)
+//     manager.deleteHabit(4)
 
-    // console.log("Loop iteration:", count);
-}
-// console.log("After loop");
-
-
+//     // console.log("Loop iteration:", count);
+// }
+// // console.log("After loop");
 
 
-// module.exports = { Habit, HabitManager}; 
+
+export { Habit, HabitManager}; 
