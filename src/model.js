@@ -67,6 +67,39 @@ class HabitManager {
   }
 }
 
+class DateNavigator {
+  constructor() {
+    this.offset = 0;
+  }
+
+  getDates() {
+    const baseDate = new Date("2024-01-31");
+    console.log(baseDate)
+    baseDate.setDate(baseDate.getDate() + this.offset);
+   
+    return {
+      past: this.setDates(baseDate, -1) ,
+      present: this.setDates(baseDate, 0) ,
+      future: this.setDates(baseDate, 1),
+    };
+  }
+
+  setDates(baseDate, offset) {
+    const date = new Date(baseDate)
+    date.setDate(date.getDate() + offset)
+    return date.getDate()
+  }
+
+  goBack() {
+    this.offset--;
+    return this.getDates();
+  }
+
+  goForward() {
+    this.offset++;
+    return this.getDates();
+  }
+}
 // // console.log("Before loop");
 // for (let count = 0; count < 1; count++) {
 //     const manager = new HabitManager();
@@ -79,6 +112,4 @@ class HabitManager {
 // }
 // // console.log("After loop");
 
-
-
-export { Habit, HabitManager}; 
+export { Habit, HabitManager, DateNavigator };

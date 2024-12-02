@@ -1,35 +1,35 @@
-const dateNavigator = {
-  position: 0,
+    const dateNavigator = {
+      position: 0,
 
-  getDates() {
-    baseDate = new Date();
-    baseDate.setDate(baseDate.getDate() + this.position);
-    // console.log(baseDate, this.position )
-    return {
-      past: baseDate.getDate() - 1,
-      present: baseDate.getDate(),
-      future: baseDate.getDate() + 1,
+      getDates() {
+        baseDate = new Date();
+        baseDate.setDate(baseDate.getDate() + this.position);
+        // console.log(baseDate, this.position )
+        return {
+          past: baseDate.getDate() - 1,
+          present: baseDate.getDate(),
+          future: baseDate.getDate() + 1,
+        };
+      },
+
+      goBack() {
+        this.position -= 1;
+        return this.getDates();
+      },
+
+      goForward() {
+        this.position += 1;
+        return this.getDates();
+      },
     };
-  },
 
-  goBack() {
-    this.position -= 1;
-    return this.getDates();
-  },
+    const getDateElements = () => Array.from(document.querySelectorAll(".date"));
 
-  goForward() {
-    this.position += 1;
-    return this.getDates();
-  },
-};
-
-const getDateElements = () => Array.from(document.querySelectorAll(".date"));
-
-function updatingDateElements(dates, elements) {
-  elements.forEach((element, index) => {
-    element.textContent = dates[index];
-  });
-}
+    function updatingDateElements(dates, elements) {
+      elements.forEach((element, index) => {
+        element.textContent = dates[index];
+      });
+    }
 
 const selectTableBody = () => document.querySelector("tbody");
 

@@ -16,11 +16,34 @@ How might you verify that all remaining habits are exactly what you expect them 
 
 
 
-working on 11/27 
+ISSUES
+[CRITICAL] Architecture/MVC Violations
 
-[CRITICAL] View class directly manipulates DOM and handles events - violates separation of concerns
-[CRITICAL] No error handling for DOM element selection in constructor
-[MODERATE] renderCurrentDates uses magic numbers/hardcoded indices
-[MODERATE] Checkbox event handler lacks data persistence
-[MINOR] No performance optimization for repeated DOM queries
+Model (HabitManager) contains minimal business logic
+Date navigation logic scattered between Model/View: Solved Dec 1
+View handles data manipulation that should be in Model
+No Controller to mediate Model-View interaction
 
+[CRITICAL] State Management
+
+Inconsistent state syncing between localStorage and UI
+Date state managed in multiple places
+No single source of truth for habit completion status
+
+[MODERATE] Error Handling
+
+Missing validation in HabitManager.addHabit()
+No error handling for localStorage failures
+Checkbox state updates lack error boundaries
+
+[MODERATE] Single Responsibility
+
+View.renderTable handles both rendering and date logic
+HabitManager mixes storage and habit management
+Date navigation spans multiple responsibilities
+
+[MINOR] Performance
+
+Repeated DOM queries in View constructor
+Inefficient table re-rendering on each update
+Unnecessary array conversions in header handling
