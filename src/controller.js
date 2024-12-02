@@ -31,6 +31,8 @@ class HabitController {
         this.view.renderTable(this.habitManager.habits);
       }
     });
+
+    console.log(this.view.renderCheckBox())
   }
 }
 

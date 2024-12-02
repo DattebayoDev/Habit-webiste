@@ -21,9 +21,8 @@ class View {
     this.tableBody.textContent = "";
     for (let index = 0; index < habitData.length; index++) {
       const habit = habitData[index];
-      const habitIndex = habitData.indexOf(habit);
       const row = this.tableBody.insertRow(index);
-      this.renderRowCells(this.tableHeaders, row, habit, habitIndex);
+      this.renderRowCells(row, habit, index);
     }
   }
 
@@ -34,20 +33,20 @@ class View {
     this.futureHeader.textContent = dates.future;
   }
 
-  renderRowCells(headers, row, habit, habitIndex) {
-    for (let index = 0; index < headers.length; index++) {
+  renderRowCells(row, habit) {
+    for (let index = 0; index < this.tableHeaders.length; index++) {
       let cell = row.insertCell(index);
-      this.renderCell(index, cell, habit, habitIndex);
+      this.renderCell(index, cell, habit);
     }
   }
 
-  renderCell(index, cell, habit, habitIndex) {
+  renderCell(index, cell, habit) {
     const cellTypes = {
       0: () => habit.name,
-      1: () => this.renderDeleteButton(habitIndex),
-      2: () => this.renderCheckbox(index),
-      3: () => this.renderCheckbox(index),
-      4: () => this.renderCheckbox(index),
+      1: () => this.renderDeleteButton(),
+      2: () => this.renderCheckbox(index, 0),
+      3: () => this.renderCheckbox(index, 1),
+      4: () => this.renderCheckbox(index, 2),
       5: () => habit.goal,
       6: () => "n/a",
     };
@@ -56,25 +55,20 @@ class View {
     cell.append(content);
   }
 
-  renderDeleteButton(habitIndex) {
+  renderDeleteButton() {
     const btn = document.createElement("button");
     btn.classList.add("deleteBtn");
-    btn.dataset.habitIndex = habitIndex;
     btn.textContent = "Delete";
     return btn;
   }
 
-  renderCheckbox(index) {
+  renderCheckbox(index, dateIndex) {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.dataset.habitIndex = index;
-    this.checkboxEvent(checkbox);
     return checkbox;
   }
 
-  checkboxEvent(checkbox) {
-    checkbox.addEventListener("click", () => {});
-  }
 }
 
 let testData = [

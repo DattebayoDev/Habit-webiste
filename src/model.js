@@ -65,6 +65,8 @@ class HabitManager {
     this.habits.splice(index, 1);
     this.saveHabit();
   }
+
+  check
 }
 
 class DateNavigator {

@@ -21,7 +21,7 @@ ISSUES
 
 Model (HabitManager) contains minimal business logic
 Date navigation logic scattered between Model/View: Solved Dec 1
-View handles data manipulation that should be in Model
+View handles data manipulation that should be in Model: Working 
 No Controller to mediate Model-View interaction
 
 [CRITICAL] State Management
