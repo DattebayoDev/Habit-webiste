@@ -32,13 +32,16 @@ class HabitController {
       }
     });
 
-    console.log(this.view.renderCheckBox())
+    this.view.tableBody.addEventListener('click', (event) => {
+      console.log(event.target.dataset.date)
+      // this.habitManager.isHabitCompleted(event.target.dataset.habitIndex, 1)
+    })
   }
 }
 
 const habitManager = new HabitManager();
-const view = new View();
 const dateNavigator = new DateNavigator();
+const view = new View(dateNavigator.getDates());
 const habitController = new HabitController(habitManager, view, dateNavigator);
 habitController.init();
 habitController.bindEvents();

@@ -1,5 +1,6 @@
 class View {
-  constructor() {
+  constructor(dates) {
+    this.dates = dates;
     this.habitForm = document.getElementById("habitForm");
     this.habitInput = document.getElementById("habitInput");
     this.habitGoal = document.getElementById("habitGoal");
@@ -17,6 +18,11 @@ class View {
     this.futureHeader = document.getElementById("future");
   }
 
+  renderDates(dates) {
+    this.pastHeader.textContent = dates.past;
+    this.presentHeader.textContent = dates.present;
+    this.futureHeader.textContent = dates.future;
+  }
   renderTable(habitData) {
     this.tableBody.textContent = "";
     for (let index = 0; index < habitData.length; index++) {
@@ -26,27 +32,20 @@ class View {
     }
   }
 
-  renderDates(dates) {
-    console.log(dates)
-    this.pastHeader.textContent = dates.past;
-    this.presentHeader.textContent = dates.present;
-    this.futureHeader.textContent = dates.future;
-  }
-
-  renderRowCells(row, habit) {
+  renderRowCells(row, habit, HabitIndex) {
     for (let index = 0; index < this.tableHeaders.length; index++) {
       let cell = row.insertCell(index);
-      this.renderCell(index, cell, habit);
+      this.renderCell(index, HabitIndex, cell, habit);
     }
   }
 
-  renderCell(index, cell, habit) {
+  renderCell(index, HabitIndex, cell, habit) {
     const cellTypes = {
       0: () => habit.name,
       1: () => this.renderDeleteButton(),
-      2: () => this.renderCheckbox(index, 0),
-      3: () => this.renderCheckbox(index, 1),
-      4: () => this.renderCheckbox(index, 2),
+      2: () => this.renderCheckbox(HabitIndex, index),
+      3: () => this.renderCheckbox(HabitIndex, index),
+      4: () => this.renderCheckbox(HabitIndex, index),
       5: () => habit.goal,
       6: () => "n/a",
     };
@@ -63,12 +62,18 @@ class View {
   }
 
   renderCheckbox(index, dateIndex) {
+    console.log(index, dateIndex)
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.dataset.habitIndex = index;
+    checkbox.dataset.date = 
+      dateIndex === 2
+        ? this.dates.past
+        : dateIndex === 3
+        ? this.dates.present
+        : this.dates.future;
     return checkbox;
   }
-
 }
 
 let testData = [
@@ -81,5 +86,3 @@ let testData = [
 // const view = new View();
 
 export { View };
-
-

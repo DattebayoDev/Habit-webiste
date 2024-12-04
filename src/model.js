@@ -47,7 +47,7 @@ class HabitManager {
         ? new FileStorageAdapter("habitData.json")
         : new LocalStorageAdapter();
     this.habits = this.storage.load();
-  }
+    }
 
   addHabit(habit, goal, dates = []) {
     habit = new Habit(habit, goal, dates);
@@ -66,7 +66,11 @@ class HabitManager {
     this.saveHabit();
   }
 
-  check
+  isHabitCompleted(habitIndex, date) {
+    return this.habits[habitIndex].dates.includes(date)
+  }
+
+  
 }
 
 class DateNavigator {
@@ -75,8 +79,7 @@ class DateNavigator {
   }
 
   getDates() {
-    const baseDate = new Date("2024-01-31");
-    console.log(baseDate)
+    const baseDate = new Date();
     baseDate.setDate(baseDate.getDate() + this.offset);
    
     return {
