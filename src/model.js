@@ -47,12 +47,12 @@ class HabitManager {
         ? new FileStorageAdapter("habitData.json")
         : new LocalStorageAdapter();
     this.habits = this.storage.load();
+    console.log(this.habits)
     }
 
   addHabit(habit, goal, dates = []) {
     habit = new Habit(habit, goal, dates);
     this.habits.push(habit);
-
     this.saveHabit();
     return habit;
   }
@@ -70,7 +70,18 @@ class HabitManager {
     return this.habits[habitIndex].dates.includes(date)
   }
 
-  
+  updateDatesArray(index, date) {
+    if (this.habits[index].dates.includes(date)) {
+      const dateIndex = this.habits[index].dates.indexOf(date)
+      this.habits[index].dates.splice(dateIndex, 1)
+    } else {
+      this.habits[index].dates.push(date)
+    }
+    this.saveHabit()
+
+    console.log(this.habits)
+
+  }
 }
 
 class DateNavigator {

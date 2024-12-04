@@ -43,9 +43,9 @@ class View {
     const cellTypes = {
       0: () => habit.name,
       1: () => this.renderDeleteButton(),
-      2: () => this.renderCheckbox(HabitIndex, index),
-      3: () => this.renderCheckbox(HabitIndex, index),
-      4: () => this.renderCheckbox(HabitIndex, index),
+      2: () => this.renderCheckbox(HabitIndex, index, habit),
+      3: () => this.renderCheckbox(HabitIndex, index, habit),
+      4: () => this.renderCheckbox(HabitIndex, index, habit),
       5: () => habit.goal,
       6: () => "n/a",
     };
@@ -61,18 +61,22 @@ class View {
     return btn;
   }
 
-  renderCheckbox(index, dateIndex) {
-    console.log(index, dateIndex)
+  renderCheckbox(index, dateIndex, habit) {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.dataset.habitIndex = index;
-    checkbox.dataset.date = 
+    checkbox.dataset.date =
       dateIndex === 2
         ? this.dates.past
         : dateIndex === 3
         ? this.dates.present
         : this.dates.future;
+    checkbox.checked = habit.dates.includes(checkbox.dataset.date);
     return checkbox;
+  }
+
+  updateCheckbox(status, checkbox) {
+    if (status) checkbox.checked = true;
   }
 }
 
