@@ -16,9 +16,14 @@ class View {
     this.pastHeader = document.getElementById("past");
     this.presentHeader = document.getElementById("present");
     this.futureHeader = document.getElementById("future");
+    this.dateNavigator = document.getElementById("dateNavigator")
+    this.forwardBtn = document.getElementById("forwardBtn")
+    this.backwardBtn = document.getElementById("backwardBtn")
+
   }
 
   renderDates(dates) {
+    this.dates = dates
     this.pastHeader.textContent = dates.past;
     this.presentHeader.textContent = dates.present;
     this.futureHeader.textContent = dates.future;
@@ -47,7 +52,7 @@ class View {
       3: () => this.renderCheckbox(HabitIndex, index, habit),
       4: () => this.renderCheckbox(HabitIndex, index, habit),
       5: () => habit.goal,
-      6: () => "n/a",
+      6: () => this.completionBox(habit)
     };
 
     const content = cellTypes[index]();
@@ -71,12 +76,20 @@ class View {
         : dateIndex === 3
         ? this.dates.present
         : this.dates.future;
+      console.log("Current dates:", this.dates);
+      console.log("Habit dates:", habit.dates)
     checkbox.checked = habit.dates.includes(checkbox.dataset.date);
     return checkbox;
   }
 
   updateCheckbox(status, checkbox) {
     if (status) checkbox.checked = true;
+  }
+
+  completionBox(habit){
+    const cell = document.createElement("span")
+    cell.textContent = habit.dates.length
+    return cell
   }
 }
 

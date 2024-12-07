@@ -11,7 +11,6 @@ class HabitController {
   init() {
     this.view.renderTable(this.habitManager.habits);
     this.view.renderDates(this.dateNavigator.getDates());
-
   }
 
   bindEvents() {
@@ -37,16 +36,23 @@ class HabitController {
       if (event.target.type === "checkbox") {
         const habitIndex = event.target.dataset.habitIndex
         const date = event.target.dataset.date
-        console.log("Habit index", event.target.dataset.habitIndex, "Date",event.target.dataset.date );
-        // const status = this.habitManager.isHabitCompleted(
-        //   event.target.dataset.habitIndex,
-        //   event.target.dataset.date
-        // );
-        //   // console.log("Status", status);
-        // this.view.updateCheckbox(status, event.target)
         this.habitManager.updateDatesArray(habitIndex, date);
       }
+      this.view.renderTable(this.habitManager.habits);
+
+
     });
+
+    this.view.dateNavigator.addEventListener('click', (event) => {
+      if (event.target.id === 'forwardBtn') {
+        this.view.renderDates(this.dateNavigator.goForward())
+        this.view.renderTable(this.habitManager.habits);
+      }
+      if (event.target.id === 'backBtn') {
+        this.view.renderDates(this.dateNavigator.goBack())
+        this.view.renderTable(this.habitManager.habits);
+      }
+    })  
   }
 }
 

@@ -47,7 +47,7 @@ class HabitManager {
         ? new FileStorageAdapter("habitData.json")
         : new LocalStorageAdapter();
     this.habits = this.storage.load();
-    console.log(this.habits)
+    // console.log(this.habits)
     }
 
   addHabit(habit, goal, dates = []) {
@@ -78,9 +78,10 @@ class HabitManager {
       this.habits[index].dates.push(date)
     }
     this.saveHabit()
+  }
 
-    console.log(this.habits)
-
+  completionTracker(index){
+    console.log(this.habits[index].dates.length)
   }
 }
 
@@ -116,16 +117,6 @@ class DateNavigator {
     return this.getDates();
   }
 }
-// // console.log("Before loop");
-// for (let count = 0; count < 1; count++) {
-//     const manager = new HabitManager();
-//     // console.log(manager.habits)
-//     // manager.addHabit("Habit", 1);
 
-//     manager.deleteHabit(4)
-
-//     // console.log("Loop iteration:", count);
-// }
-// // console.log("After loop");
 
 export { Habit, HabitManager, DateNavigator };
