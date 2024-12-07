@@ -14,5 +14,8 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0"
+  },
+  "dependencies": {
+    "mongodb": "^6.11.0"
   }
 }
