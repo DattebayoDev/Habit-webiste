@@ -1,0 +1,52 @@
+# Authentication Implementation Guide
+
+## Prerequisites
+- Node.js basics
+- Express.js fundamentals
+- MongoDB basics
+
+## Learning Path
+
+### 1. Basic User System
+- Create User model (MongoDB)
+- Set up registration endpoint
+- Implement login endpoint
+- Connect to MongoDB
+
+### 2. Password Security
+- Hash passwords (bcrypt)
+- Validate user input
+- Handle login errors
+- Implement password reset
+
+### 3. JWT Authentication
+- Create JWT tokens
+- Protect routes
+- Handle token expiration
+- Implement refresh tokens
+
+### 4. Frontend Integration
+- Add login/register forms
+- Store JWT in localStorage
+- Add authentication headers
+- Handle unauthorized responses
+
+### 5. Security Enhancements
+- Add rate limiting
+- Implement CSRF protection
+- Add input sanitization
+- Set secure headers
+
+## Starting Questions
+1. "How do I set up a basic MongoDB User model?"
+2. "How do I create registration/login endpoints?"
+3. "What's the difference between encrypted and hashed passwords?"
+4. "How do JWTs work and why use them?"
+5. "How do I protect routes from unauthorized access?"
+
+## Key Concepts to Discuss
+- User authentication flow
+- Password hashing vs encryption
+- Token-based authentication
+- Session management
+- Security best practices
